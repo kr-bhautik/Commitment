@@ -4,7 +4,6 @@ pragma solidity 0.8.28;
 contract BasicCommitment {
 
     mapping(address => bytes32) commitOf;
-
     function generateCommitHash(uint256 value, uint256 randomNum) public pure returns (bytes32) {
 
         return keccak256(abi.encodePacked(value, randomNum));
@@ -21,9 +20,7 @@ contract BasicCommitment {
     function reveal(uint256 value, uint256 randomNum) public returns (bool) {
 
         bytes32 newCommitHash = keccak256(abi.encodePacked(value, randomNum));
-
         require(commitOf[msg.sender] == newCommitHash, "Commit verification failed.");
-
         delete commitOf[msg.sender];
         return true;
     }
